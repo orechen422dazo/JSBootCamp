@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>タイピングゲーム</title>
+  <style>
+    .container {
+      margin: 50px auto;
+      max-width: 600px;
+      text-align: center;
+    }
+    .input-display {
+      font-size: 24px;
+      margin: 20px 0;
+      min-height: 30px;
+      color: #333;
+    }
+    .count {
+      font-size: 18px;
+      color: #666;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>タイピングゲーム</h1>
+  <div id="targetText" class="input-display">
+    キーを押して入力を開始してください
+  </div>
+  <div id="userInput" class="input-display"></div>
+  <div class="count">入力文字数: <span id="charCount">0</span> / 10</div>
+</div>
+
+<script>
+  // 入力文字をカウント
+  let charCount = 0;
+  let userInput = '';
+
+  // キー入力イベントのリスナーを追加
+  document.addEventListener('keydown', (event) => {
+    // バックスペースキーの処理
+    if (event.key === 'Backspace' && userInput.length > 0) {
+      userInput = userInput.slice(0, -1);
+      charCount = Math.max(0, charCount - 1);
+    }
+    // 通常のキー入力の処理（1文字のキーのみ）
+    else if (event.key.length === 1) {
+      userInput += event.key;
+      charCount++;
+    }
+
+    // 入力表示の更新
+    document.getElementById('userInput').textContent = userInput;
+    document.getElementById('charCount').textContent = charCount;
+
+    // 10文字入力された場合
+    if (charCount === 10) {
+      setTimeout(() => {
+        alert('10文字入力完了！');
+        // ゲームをリセット
+        resetGame();
+      }, 100);
+    }
+  });
+
+  // ゲームのリセット関数
+  function resetGame() {
+    charCount = 0;
+    userInput = '';
+    document.getElementById('userInput').textContent = '';
+    document.getElementById('charCount').textContent = '0';
+  }
+</script>
+</body>
+</html>
