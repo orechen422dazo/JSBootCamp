@@ -11,3 +11,16 @@ let myObj = {
 * 呼ばれた状況でthisの値変わる
 * */
 myObj.printId();// 2
+
+/*
+* @{use this}
+* loggerは this.id Object内のuuidを参照する。
+* */
+let person = {
+    uuid: "0X11111",
+    logger() {
+        console.log(this.uuid)// 0X11111
+    }
+}
+
+person.logger()
